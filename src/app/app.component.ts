@@ -3,8 +3,11 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'clientes-app-v2';
+  title = 'Welcome to Angular';
+
+  curso = 'Curso Spring 5 con Angular 11';
+  profesor = 'Alejandro Kuniyoshi';
 }
