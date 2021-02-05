@@ -13,7 +13,6 @@ export class ClienteService {
 
   getClientes(): Observable<Cliente[]> {
     //return of(CLIENTES);
-
     return this.http.get<Cliente[]>(this.urlEndPoint);
   }
 }
