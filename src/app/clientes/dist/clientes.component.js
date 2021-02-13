@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.ClientesComponent = void 0;
 var core_1 = require("@angular/core");
+var sweetalert2_1 = require("sweetalert2");
 var ClientesComponent = /** @class */ (function () {
     function ClientesComponent(clienteService) {
         this.clienteService = clienteService;
@@ -15,7 +16,30 @@ var ClientesComponent = /** @class */ (function () {
     }
     ClientesComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.clienteService.getClientes().subscribe(function (clientes) { return _this.clientes = clientes; });
+        this.clienteService
+            .getClientes()
+            .subscribe(function (clientes) { return (_this.clientes = clientes); });
+    };
+    ClientesComponent.prototype["delete"] = function (cliente) {
+        var _this = this;
+        sweetalert2_1["default"].fire({
+            title: 'Are you sure?',
+            text: 'You want to delete :' + cliente.name + ' ' + cliente.lastName,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(function (result) {
+            if (result.isConfirmed) {
+                _this.clienteService["delete"](cliente.id).subscribe(function (Response) {
+                    _this.clienteService
+                        .getClientes()
+                        .subscribe(function (clientes) { return (_this.clientes = clientes); });
+                });
+                sweetalert2_1["default"].fire('Deleted!', 'Your file has been deleted.', 'success');
+            }
+        });
     };
     ClientesComponent = __decorate([
         core_1.Component({

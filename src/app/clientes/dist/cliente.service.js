@@ -32,6 +32,9 @@ var ClienteService = /** @class */ (function () {
             headers: this.httpHeaders
         });
     };
+    ClienteService.prototype["delete"] = function (id) {
+        return this.http["delete"](this.urlEndPoint + '/' + id, { headers: this.httpHeaders });
+    };
     ClienteService = __decorate([
         core_1.Injectable()
     ], ClienteService);
