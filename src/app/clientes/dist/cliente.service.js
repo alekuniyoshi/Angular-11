@@ -8,13 +8,29 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.ClienteService = void 0;
 var core_1 = require("@angular/core");
-var clientes_json_1 = require("./clientes.json");
-var rxjs_1 = require("rxjs");
+var http_1 = require("@angular/common/http");
 var ClienteService = /** @class */ (function () {
-    function ClienteService() {
+    function ClienteService(http) {
+        this.http = http;
+        this.urlEndPoint = 'http://localhost:8080/api/clients';
+        this.httpHeaders = new http_1.HttpHeaders({ 'Content-Type': 'application/json' });
     }
     ClienteService.prototype.getClientes = function () {
-        return rxjs_1.of(clientes_json_1.CLIENTES);
+        //return of(CLIENTES);
+        return this.http.get(this.urlEndPoint);
+    };
+    ClienteService.prototype.create = function (cliente) {
+        return this.http.post(this.urlEndPoint, cliente, {
+            headers: this.httpHeaders
+        });
+    };
+    ClienteService.prototype.getCliente = function (id) {
+        return this.http.get(this.urlEndPoint + '/' + id);
+    };
+    ClienteService.prototype.update = function (cliente) {
+        return this.http.put(this.urlEndPoint + '/' + cliente.id, cliente, {
+            headers: this.httpHeaders
+        });
     };
     ClienteService = __decorate([
         core_1.Injectable()

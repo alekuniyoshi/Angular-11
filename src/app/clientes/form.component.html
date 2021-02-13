@@ -2,7 +2,7 @@
     <div class="card-header"> {{title}}</div>
     <div class="card-body ">
 
-        <form (ngSubmit)="create()">
+        <form>
             <div class="form-group row">
                 <label for="name" class="col-form-label col-sm-2">Name</label>
                 <input type="text" [(ngModel)]="cliente.name" name="name" class="form-control col-sm-2" placeholder="Name">
@@ -16,8 +16,11 @@
                 <input type="text" [(ngModel)]="cliente.email" name="email" class="form-control col-sm-2" placeholder="Enter email">
             </div>
             <div class="col-sm-6">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" role="button" (click)=create() *ngIf="!cliente.id else elseBlock">Submit</button>
             </div>
+            <ng-template #elseBlock>
+                <button type="submit" class="btn btn-primary" role="button" (click)=update()>Submit</button>
+            </ng-template>
 
         </form>
 
