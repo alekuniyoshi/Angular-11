@@ -29,7 +29,7 @@ export class ClientesComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.clienteService.delete(cliente.id).subscribe((Response) => {
+        this.clienteService.delete(cliente.id).subscribe((response) => {
           this.clienteService
             .getClientes()
             .subscribe((clientes) => (this.clientes = clientes));

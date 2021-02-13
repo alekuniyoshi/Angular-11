@@ -32,7 +32,7 @@ var ClientesComponent = /** @class */ (function () {
             confirmButtonText: 'Yes, delete it!'
         }).then(function (result) {
             if (result.isConfirmed) {
-                _this.clienteService["delete"](cliente.id).subscribe(function (Response) {
+                _this.clienteService["delete"](cliente.id).subscribe(function (response) {
                     _this.clienteService
                         .getClientes()
                         .subscribe(function (clientes) { return (_this.clientes = clientes); });
