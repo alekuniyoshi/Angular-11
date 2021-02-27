@@ -34,9 +34,9 @@ var FormComponent = /** @class */ (function () {
     };
     FormComponent.prototype.create = function () {
         var _this = this;
-        this.clienteService.create(this.cliente).subscribe(function (cliente) {
+        this.clienteService.create(this.cliente).subscribe(function (json) {
             _this.router.navigate(['/clientes']);
-            sweetalert2_1["default"].fire('New Client', 'Client :' + _this.cliente.name, 'success');
+            sweetalert2_1["default"].fire(json.mensaje, 'Client: ' + _this.cliente.name + ' ' + _this.cliente.lastName, 'success');
         });
     };
     FormComponent.prototype.update = function () {
@@ -44,7 +44,7 @@ var FormComponent = /** @class */ (function () {
         this.clienteService
             .update(this.cliente)
             .subscribe(function (Cliente) { return _this.router.navigate(['/clientes']); });
-        sweetalert2_1["default"].fire('Client Edited', 'Client Edited : ' + this.cliente.name, 'success');
+        sweetalert2_1["default"].fire('Client Edited', 'Client Edited: ' + this.cliente.name + ' ' + this.cliente.lastName, 'success');
     };
     FormComponent = __decorate([
         core_1.Component({
