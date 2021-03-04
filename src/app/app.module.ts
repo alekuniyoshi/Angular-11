@@ -12,6 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormComponent } from './clientes/form.component';
 import { FormsModule } from '@angular/forms';
+import { registerLocaleData } from '@angular/common';
+import localeES from '@angular/common/locales/es';
 
 const routers: Routes = [
   { path: '', redirectTo: './clientes', pathMatch: 'full' },
@@ -20,6 +22,8 @@ const routers: Routes = [
   { path: 'clientes/form', component: FormComponent },
   { path: 'clientes/form/:id', component: FormComponent }
 ];
+
+registerLocaleData(localeES, 'es');
 
 @NgModule({
   declarations: [
@@ -40,4 +44,4 @@ const routers: Routes = [
   providers: [ClienteService],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

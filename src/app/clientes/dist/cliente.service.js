@@ -12,6 +12,7 @@ var rxjs_1 = require("rxjs");
 var http_1 = require("@angular/common/http");
 var operators_1 = require("rxjs/operators");
 var sweetalert2_1 = require("sweetalert2");
+var common_1 = require("@angular/common");
 var ClienteService = /** @class */ (function () {
     function ClienteService(http, router) {
         this.http = http;
@@ -21,14 +22,25 @@ var ClienteService = /** @class */ (function () {
     }
     ClienteService.prototype.getClientes = function () {
         //return of(CLIENTES);
-        return this.http.get(this.urlEndPoint);
+        return this.http.get(this.urlEndPoint).pipe(operators_1.map(function (response) {
+            var clientes = response;
+            return clientes.map(function (cliente) {
+                cliente.name = cliente.name.toUpperCase();
+                var datePipe = new common_1.DatePipe('es');
+                cliente.createAd = datePipe.transform(cliente.createAd, 'fullDate'); //formatDate(cliente.createAd, 'dd-MM-yyyy', 'en-US');
+                return cliente;
+            });
+        }));
     };
     ClienteService.prototype.create = function (cliente) {
         return this.http
             .post(this.urlEndPoint, cliente, {
             headers: this.httpHeaders
         })
-            .pipe(operators_1.catchError(function (e) {
+            .pipe(operators_1.map(function (response) { return response.cliente; }), operators_1.catchError(function (e) {
+            if (e.status == 400) {
+                return rxjs_1.throwError(e);
+            }
             sweetalert2_1["default"].fire('Error can not create the client', e.error.error, 'error');
             return rxjs_1.throwError(e);
         }));
@@ -47,6 +59,9 @@ var ClienteService = /** @class */ (function () {
             headers: this.httpHeaders
         })
             .pipe(operators_1.catchError(function (e) {
+            if (e.status == 400) {
+                return rxjs_1.throwError(e);
+            }
             sweetalert2_1["default"].fire('Error can not update the client', e.error.error, 'error');
             return rxjs_1.throwError(e);
         }));

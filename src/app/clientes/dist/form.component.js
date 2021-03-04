@@ -34,17 +34,25 @@ var FormComponent = /** @class */ (function () {
     };
     FormComponent.prototype.create = function () {
         var _this = this;
-        this.clienteService.create(this.cliente).subscribe(function (json) {
+        this.clienteService.create(this.cliente).subscribe(function (cliente) {
             _this.router.navigate(['/clientes']);
-            sweetalert2_1["default"].fire(json.mensaje, 'Client: ' + _this.cliente.name + ' ' + _this.cliente.lastName, 'success');
+            sweetalert2_1["default"].fire('New Client', 'Client: ' + cliente.name + ' ' + cliente.lastName, 'success');
+        }, function (err) {
+            _this.errors = err.error.errors;
+            console.log("Cod of error from backend:" + err.status);
+            console.log(err.error.errors);
         });
     };
     FormComponent.prototype.update = function () {
         var _this = this;
-        this.clienteService
-            .update(this.cliente)
-            .subscribe(function (Cliente) { return _this.router.navigate(['/clientes']); });
-        sweetalert2_1["default"].fire('Client Edited', 'Client Edited: ' + this.cliente.name + ' ' + this.cliente.lastName, 'success');
+        this.clienteService.update(this.cliente).subscribe(function (json) {
+            _this.router.navigate(['/clientes']);
+            sweetalert2_1["default"].fire(json.mensaje, 'Client Edited: ' + _this.cliente.name + ' ' + _this.cliente.lastName, 'success');
+        }, function (err) {
+            _this.errors = err.error.errors;
+            console.log("Cod of error from backend:" + err.status);
+            console.log(err.error.errors);
+        });
     };
     FormComponent = __decorate([
         core_1.Component({

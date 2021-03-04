@@ -11,12 +11,13 @@ import Swal from 'sweetalert2';
 export class FormComponent implements OnInit {
   public title: string = 'Add Client';
   public cliente: Cliente = new Cliente();
+  public errors: String[];
 
   constructor(
     private clienteService: ClienteService,
     private router: Router,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.addClients();
@@ -34,24 +35,37 @@ export class FormComponent implements OnInit {
   }
 
   create(): void {
-    this.clienteService.create(this.cliente).subscribe( json => {
+    this.clienteService.create(this.cliente).subscribe(cliente => {
       this.router.navigate(['/clientes']);
       Swal.fire(
-        json.mensaje,
-        'Client: ' +this.cliente.name + ' ' + this.cliente.lastName,
+        'New Client',
+        'Client: ' + cliente.name + ' ' + cliente.lastName,
         'success'
       );
-    });
+    },
+      err => {
+        this.errors = err.error.errors as String[];
+        console.log("Cod of error from backend:" + err.status);
+        console.log(err.error.errors);
+      }
+
+    );
   }
 
   update(): void {
-    this.clienteService
-      .update(this.cliente)
-      .subscribe((Cliente) => this.router.navigate(['/clientes']));
-    Swal.fire(
-      'Client Edited',
-      'Client Edited: ' + this.cliente.name + ' ' + this.cliente.lastName,
-      'success'
+    this.clienteService.update(this.cliente).subscribe((json) => {
+      this.router.navigate(['/clientes']);
+      Swal.fire(
+        json.mensaje,
+        'Client Edited: ' + this.cliente.name + ' ' + this.cliente.lastName,
+        'success'
+      );
+    },
+      err => {
+        this.errors = err.error.errors as String[];
+        console.log("Cod of error from backend:" + err.status);
+        console.log(err.error.errors);
+      }
     );
   }
 }

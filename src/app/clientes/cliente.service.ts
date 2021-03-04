@@ -6,9 +6,11 @@ import {
   HttpHeaders,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { DatePipe } from '@angular/common';
+
 
 @Injectable()
 export class ClienteService {
@@ -16,20 +18,38 @@ export class ClienteService {
 
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   getClientes(): Observable<Cliente[]> {
     //return of(CLIENTES);
-    return this.http.get<Cliente[]>(this.urlEndPoint);
+    return this.http.get(this.urlEndPoint).pipe(map(response => {
+
+      let clientes = response as Cliente[];
+
+
+      return clientes.map(cliente => {
+        cliente.name = cliente.name.toUpperCase();
+
+        let datePipe = new DatePipe('es');
+        cliente.createAd =datePipe.transform(cliente.createAd,'fullDate'); //formatDate(cliente.createAd, 'dd-MM-yyyy', 'en-US');
+        return cliente;
+      });
+    }));
   }
 
-  create(cliente: Cliente): Observable<Cliente[]> {
+  create(cliente: Cliente): Observable<Cliente> {
     return this.http
-      .post<Cliente[]>(this.urlEndPoint, cliente, {
+      .post(this.urlEndPoint, cliente, {
         headers: this.httpHeaders,
       })
       .pipe(
+        map((response: any) => response.cliente as Cliente),
         catchError((e) => {
+
+          if (e.status == 400) {
+            return throwError(e);
+          }
+
           Swal.fire('Error can not create the client', e.error.error, 'error');
           return throwError(e);
         })
@@ -46,13 +66,18 @@ export class ClienteService {
     );
   }
 
-  update(cliente: Cliente): Observable<Cliente> {
+  update(cliente: Cliente): Observable<any> {
     return this.http
-      .put<Cliente>(this.urlEndPoint + '/' + cliente.id, cliente, {
+      .put<any>(this.urlEndPoint + '/' + cliente.id, cliente, {
         headers: this.httpHeaders,
       })
       .pipe(
         catchError((e) => {
+
+          if (e.status == 400) {
+            return throwError(e);
+          }
+
           Swal.fire('Error can not update the client', e.error.error, 'error');
           return throwError(e);
         })
