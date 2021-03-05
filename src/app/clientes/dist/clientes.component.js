@@ -9,6 +9,7 @@ exports.__esModule = true;
 exports.ClientesComponent = void 0;
 var core_1 = require("@angular/core");
 var sweetalert2_1 = require("sweetalert2");
+var operators_1 = require("rxjs/operators");
 var ClientesComponent = /** @class */ (function () {
     function ClientesComponent(clienteService) {
         this.clienteService = clienteService;
@@ -17,8 +18,12 @@ var ClientesComponent = /** @class */ (function () {
     ClientesComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.clienteService
-            .getClientes()
-            .subscribe(function (clientes) { return (_this.clientes = clientes); });
+            .getClientes().pipe(operators_1.tap(function (clientes) {
+            console.log('clientes.component');
+            clientes.forEach(function (cliente) {
+                console.log(cliente.name);
+            });
+        })).subscribe(function (clientes) { return _this.clientes = clientes; });
     };
     ClientesComponent.prototype["delete"] = function (cliente) {
         var _this = this;

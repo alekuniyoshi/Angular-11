@@ -45,7 +45,7 @@ export class FormComponent implements OnInit {
     },
       err => {
         this.errors = err.error.errors as String[];
-        console.log("Cod of error from backend:" + err.status);
+        console.log("Code of error from backend:" + err.status);
         console.log(err.error.errors);
       }
 
@@ -63,7 +63,7 @@ export class FormComponent implements OnInit {
     },
       err => {
         this.errors = err.error.errors as String[];
-        console.log("Cod of error from backend:" + err.status);
+        console.log("Code of error from backend:" + err.status);
         console.log(err.error.errors);
       }
     );

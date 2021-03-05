@@ -39,7 +39,7 @@ var FormComponent = /** @class */ (function () {
             sweetalert2_1["default"].fire('New Client', 'Client: ' + cliente.name + ' ' + cliente.lastName, 'success');
         }, function (err) {
             _this.errors = err.error.errors;
-            console.log("Cod of error from backend:" + err.status);
+            console.log("Code of error from backend:" + err.status);
             console.log(err.error.errors);
         });
     };
@@ -50,7 +50,7 @@ var FormComponent = /** @class */ (function () {
             sweetalert2_1["default"].fire(json.mensaje, 'Client Edited: ' + _this.cliente.name + ' ' + _this.cliente.lastName, 'success');
         }, function (err) {
             _this.errors = err.error.errors;
-            console.log("Cod of error from backend:" + err.status);
+            console.log("Code of error from backend:" + err.status);
             console.log(err.error.errors);
         });
     };

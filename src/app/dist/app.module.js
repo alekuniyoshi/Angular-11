@@ -50,7 +50,7 @@ var AppModule = /** @class */ (function () {
                 router_1.RouterModule.forRoot(routers),
                 ng_bootstrap_1.NgbModule,
             ],
-            providers: [cliente_service_1.ClienteService],
+            providers: [cliente_service_1.ClienteService, { provide: core_1.LOCALE_ID, useValue: 'es' }],
             bootstrap: [app_component_1.AppComponent]
         })
     ], AppModule);

@@ -28,10 +28,9 @@ export class ClienteService {
 
 
       return clientes.map(cliente => {
-        cliente.name = cliente.name.toUpperCase();
-
+        //cliente.name = cliente.name.toUpperCase();
         let datePipe = new DatePipe('es');
-        cliente.createAd =datePipe.transform(cliente.createAd,'fullDate'); //formatDate(cliente.createAd, 'dd-MM-yyyy', 'en-US');
+        //cliente.createAd = datePipe.transform(cliente.createAd, 'fullDate'); //formatDate(cliente.createAd, 'dd-MM-yyyy', 'en-US');
         return cliente;
       });
     }));
