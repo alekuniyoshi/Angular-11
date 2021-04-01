@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
-import Swal from 'sweetalert2';
+import swal from 'sweetalert2';
 import { tap } from 'rxjs/operators';
+import { ActivatedRoute, Params } from '@angular/router';
+
 
 @Component({
   selector: 'app-clientes',
@@ -11,20 +13,31 @@ import { tap } from 'rxjs/operators';
 export class ClientesComponent implements OnInit {
   clientes: Cliente[] = [];
 
-  constructor(private clienteService: ClienteService) { }
+  constructor(private clienteService: ClienteService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.clienteService
-      .getClientes().pipe(tap(clientes => {
-        console.log('clientes.component');
-        clientes.forEach(cliente => {
-          console.log(cliente.name);
-        })
-      })).subscribe(clientes => this.clientes = clientes);
+    // let page: number = +  this.activatedRoute.snapshot.paramMap.get('pages');
+    // this.activatedRoute.paramMap.subscribe(params => {
+    //   let page: number = +params.get('page');
+
+    //   if (!page) {
+    //     page = 0;
+    //   }
+
+      this.clienteService
+        .getClientes(0).pipe(tap(response => {
+          console.log('clientes.component');
+          (response.content as Cliente[]).forEach(cliente => {
+            console.log(cliente.name);
+          })
+        })).subscribe(response => this.clientes = response.content as Cliente[]);
+
+    // });
+
   }
 
   delete(cliente: Cliente): void {
-    Swal.fire({
+    swal.fire({
       title: 'Are you sure?',
       text: 'You want to delete :' + cliente.name + ' ' + cliente.lastName,
       icon: 'warning',
@@ -33,14 +46,22 @@ export class ClientesComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
-      if (result.isConfirmed) {
-        this.clienteService.delete(cliente.id).subscribe((response) => {
-          this.clienteService
-            .getClientes()
-            .subscribe((clientes) => (this.clientes = clientes));
-        });
-        Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+      if (result.value) {
+
+        this.clienteService.delete(cliente.id).subscribe(
+          () => {
+            this.clientes = this.clientes.filter(cli => cli !== cliente)
+            swal.fire(
+              'Cliente Eliminado!',
+              `Cliente ${cliente.name} eliminado con éxito.`,
+              'success'
+            )
+          }
+        )
+
       }
     });
   }
+
+
 }

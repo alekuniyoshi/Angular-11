@@ -11,19 +11,27 @@ var core_1 = require("@angular/core");
 var sweetalert2_1 = require("sweetalert2");
 var operators_1 = require("rxjs/operators");
 var ClientesComponent = /** @class */ (function () {
-    function ClientesComponent(clienteService) {
+    function ClientesComponent(clienteService, activatedRoute) {
         this.clienteService = clienteService;
+        this.activatedRoute = activatedRoute;
         this.clientes = [];
     }
     ClientesComponent.prototype.ngOnInit = function () {
+        // let page: number = +  this.activatedRoute.snapshot.paramMap.get('pages');
+        // this.activatedRoute.paramMap.subscribe(params => {
+        //   let page: number = +params.get('page');
         var _this = this;
+        //   if (!page) {
+        //     page = 0;
+        //   }
         this.clienteService
-            .getClientes().pipe(operators_1.tap(function (clientes) {
+            .getClientes(0).pipe(operators_1.tap(function (response) {
             console.log('clientes.component');
-            clientes.forEach(function (cliente) {
+            response.content.forEach(function (cliente) {
                 console.log(cliente.name);
             });
-        })).subscribe(function (clientes) { return _this.clientes = clientes; });
+        })).subscribe(function (response) { return _this.clientes = response.content; });
+        // });
     };
     ClientesComponent.prototype["delete"] = function (cliente) {
         var _this = this;
@@ -36,13 +44,11 @@ var ClientesComponent = /** @class */ (function () {
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
         }).then(function (result) {
-            if (result.isConfirmed) {
-                _this.clienteService["delete"](cliente.id).subscribe(function (response) {
-                    _this.clienteService
-                        .getClientes()
-                        .subscribe(function (clientes) { return (_this.clientes = clientes); });
+            if (result.value) {
+                _this.clienteService["delete"](cliente.id).subscribe(function () {
+                    _this.clientes = _this.clientes.filter(function (cli) { return cli !== cliente; });
+                    sweetalert2_1["default"].fire('Cliente Eliminado!', "Cliente " + cliente.name + " eliminado con \u00E9xito.", 'success');
                 });
-                sweetalert2_1["default"].fire('Deleted!', 'Your file has been deleted.', 'success');
             }
         });
     };

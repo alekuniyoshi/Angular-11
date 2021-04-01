@@ -20,16 +20,16 @@ var ClienteService = /** @class */ (function () {
         this.urlEndPoint = 'http://localhost:8080/api/clients';
         this.httpHeaders = new http_1.HttpHeaders({ 'Content-Type': 'application/json' });
     }
-    ClienteService.prototype.getClientes = function () {
+    ClienteService.prototype.getClientes = function (page) {
         //return of(CLIENTES);
-        return this.http.get(this.urlEndPoint).pipe(operators_1.map(function (response) {
-            var clientes = response;
-            return clientes.map(function (cliente) {
+        return this.http.get(this.urlEndPoint + '/page/' + page).pipe(operators_1.map(function (response) {
+            response.content.map(function (cliente) {
                 //cliente.name = cliente.name.toUpperCase();
                 var datePipe = new common_1.DatePipe('es');
                 //cliente.createAd = datePipe.transform(cliente.createAd, 'fullDate'); //formatDate(cliente.createAd, 'dd-MM-yyyy', 'en-US');
                 return cliente;
             });
+            return response;
         }));
     };
     ClienteService.prototype.create = function (cliente) {
