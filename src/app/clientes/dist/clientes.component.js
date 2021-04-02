@@ -17,21 +17,21 @@ var ClientesComponent = /** @class */ (function () {
         this.clientes = [];
     }
     ClientesComponent.prototype.ngOnInit = function () {
-        // let page: number = +  this.activatedRoute.snapshot.paramMap.get('pages');
-        // this.activatedRoute.paramMap.subscribe(params => {
-        //   let page: number = +params.get('page');
         var _this = this;
-        //   if (!page) {
-        //     page = 0;
-        //   }
-        this.clienteService
-            .getClientes(0).pipe(operators_1.tap(function (response) {
-            console.log('clientes.component');
-            response.content.forEach(function (cliente) {
-                console.log(cliente.name);
-            });
-        })).subscribe(function (response) { return _this.clientes = response.content; });
-        // });
+        // let page: number = +  this.activatedRoute.snapshot.paramMap.get('pages');
+        this.activatedRoute.paramMap.subscribe(function (params) {
+            var page = +params.get('page');
+            if (!page) {
+                page = 0;
+            }
+            _this.clienteService
+                .getClientes(page).pipe(operators_1.tap(function (response) {
+                console.log('clientes.component');
+                response.content.forEach(function (cliente) {
+                    console.log(cliente.name);
+                });
+            })).subscribe(function (response) { return _this.clientes = response.content; });
+        });
     };
     ClientesComponent.prototype["delete"] = function (cliente) {
         var _this = this;

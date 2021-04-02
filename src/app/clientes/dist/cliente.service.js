@@ -22,7 +22,7 @@ var ClienteService = /** @class */ (function () {
     }
     ClienteService.prototype.getClientes = function (page) {
         //return of(CLIENTES);
-        return this.http.get(this.urlEndPoint + '/page/' + page).pipe(operators_1.map(function (response) {
+        return this.http.get(this.urlEndPoint + '/pages/' + page).pipe(operators_1.map(function (response) {
             response.content.map(function (cliente) {
                 //cliente.name = cliente.name.toUpperCase();
                 var datePipe = new common_1.DatePipe('es');

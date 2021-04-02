@@ -17,22 +17,22 @@ export class ClientesComponent implements OnInit {
 
   ngOnInit() {
     // let page: number = +  this.activatedRoute.snapshot.paramMap.get('pages');
-    // this.activatedRoute.paramMap.subscribe(params => {
-    //   let page: number = +params.get('page');
+    this.activatedRoute.paramMap.subscribe(params => {
+      let page: number = +params.get('page');
 
-    //   if (!page) {
-    //     page = 0;
-    //   }
+      if (!page) {
+        page = 0;
+      }
 
       this.clienteService
-        .getClientes(0).pipe(tap(response => {
+        .getClientes(page).pipe(tap(response => {
           console.log('clientes.component');
           (response.content as Cliente[]).forEach(cliente => {
             console.log(cliente.name);
           })
         })).subscribe(response => this.clientes = response.content as Cliente[]);
 
-    // });
+    });
 
   }
 

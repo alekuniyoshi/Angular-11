@@ -26,7 +26,7 @@ var routers = [
     { path: '', redirectTo: './clientes', pathMatch: 'full' },
     { path: 'directivas', component: directiva_component_1.DirectivaComponent },
     { path: 'clientes', component: clientes_component_1.ClientesComponent },
-    { path: 'clientes/pages/:page', component: clientes_component_1.ClientesComponent },
+    { path: 'clientes/page/:page', component: clientes_component_1.ClientesComponent },
     { path: 'clientes/form', component: form_component_1.FormComponent },
     { path: 'clientes/form/:id', component: form_component_1.FormComponent }
 ];
