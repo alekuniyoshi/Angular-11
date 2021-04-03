@@ -16,7 +16,8 @@ var router_1 = require("@angular/router");
 var http_1 = require("@angular/common/http");
 var common_1 = require("@angular/common");
 var cliente_service_1 = require("./clientes/cliente.service");
-var core_2 = require("@angular/material/core");
+var material_moment_adapter_1 = require("@angular/material-moment-adapter");
+var datepicker_1 = require("@angular/material/datepicker");
 var app_component_1 = require("./app.component");
 var header_component_1 = require("./header/header.component");
 var footer_component_1 = require("./footer/footer.component");
@@ -55,7 +56,8 @@ var AppModule = /** @class */ (function () {
                 router_1.RouterModule.forRoot(routers),
                 ng_bootstrap_1.NgbModule,
                 animations_1.NoopAnimationsModule,
-                core_2.MatNativeDateModule,
+                material_moment_adapter_1.MatMomentDateModule,
+                datepicker_1.MatDatepickerModule
             ],
             providers: [cliente_service_1.ClienteService, { provide: core_1.LOCALE_ID, useValue: 'es' }],
             bootstrap: [app_component_1.AppComponent]

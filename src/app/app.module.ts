@@ -7,7 +7,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import { ClienteService } from './clientes/cliente.service';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -46,8 +48,8 @@ registerLocaleData(localeES, 'es');
     RouterModule.forRoot(routers),
     NgbModule,
     NoopAnimationsModule,
-    MatNativeDateModule,
-
+    MatMomentDateModule,
+    MatDatepickerModule
 
   ],
   providers: [ClienteService, { provide: LOCALE_ID, useValue: 'es' }],
