@@ -24,9 +24,9 @@ var ClienteService = /** @class */ (function () {
         //return of(CLIENTES);
         return this.http.get(this.urlEndPoint + '/pages/' + page).pipe(operators_1.map(function (response) {
             response.content.map(function (cliente) {
-                //cliente.name = cliente.name.toUpperCase();
+                cliente.name = cliente.name.toUpperCase();
                 var datePipe = new common_1.DatePipe('es');
-                //cliente.createAd = datePipe.transform(cliente.createAd, 'fullDate'); //formatDate(cliente.createAd, 'dd-MM-yyyy', 'en-US');
+                // cliente.createAd = datePipe.transform(cliente.createAd, 'fullDate'); //formatDate(cliente.createAd, 'dd-MM-yyyy', 'en-US');
                 return cliente;
             });
             return response;

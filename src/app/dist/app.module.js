@@ -9,19 +9,20 @@ exports.__esModule = true;
 exports.AppModule = void 0;
 var platform_browser_1 = require("@angular/platform-browser");
 var core_1 = require("@angular/core");
+var es_1 = require("@angular/common/locales/es");
+var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
+var forms_1 = require("@angular/forms");
+var router_1 = require("@angular/router");
+var http_1 = require("@angular/common/http");
+var common_1 = require("@angular/common");
+var cliente_service_1 = require("./clientes/cliente.service");
 var app_component_1 = require("./app.component");
 var header_component_1 = require("./header/header.component");
 var footer_component_1 = require("./footer/footer.component");
 var directiva_component_1 = require("./directiva/directiva.component");
 var clientes_component_1 = require("./clientes/clientes.component");
-var cliente_service_1 = require("./clientes/cliente.service");
-var router_1 = require("@angular/router");
-var http_1 = require("@angular/common/http");
-var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
+var paginator_component_1 = require("./paginator/paginator.component");
 var form_component_1 = require("./clientes/form.component");
-var forms_1 = require("@angular/forms");
-var common_1 = require("@angular/common");
-var es_1 = require("@angular/common/locales/es");
 var routers = [
     { path: '', redirectTo: './clientes', pathMatch: 'full' },
     { path: 'directivas', component: directiva_component_1.DirectivaComponent },
@@ -43,6 +44,7 @@ var AppModule = /** @class */ (function () {
                 directiva_component_1.DirectivaComponent,
                 clientes_component_1.ClientesComponent,
                 form_component_1.FormComponent,
+                paginator_component_1.PaginatorComponent,
             ],
             imports: [
                 platform_browser_1.BrowserModule,

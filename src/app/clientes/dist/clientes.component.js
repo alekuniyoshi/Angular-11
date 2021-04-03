@@ -30,7 +30,10 @@ var ClientesComponent = /** @class */ (function () {
                 response.content.forEach(function (cliente) {
                     console.log(cliente.name);
                 });
-            })).subscribe(function (response) { return _this.clientes = response.content; });
+            })).subscribe(function (response) {
+                _this.clientes = response.content;
+                _this.paginator = response;
+            });
         });
     };
     ClientesComponent.prototype["delete"] = function (cliente) {

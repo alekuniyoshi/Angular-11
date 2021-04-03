@@ -16,6 +16,7 @@ import { DatePipe } from '@angular/common';
 export class ClienteService {
   private urlEndPoint: string = 'http://localhost:8080/api/clients';
 
+
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -25,9 +26,9 @@ export class ClienteService {
     return this.http.get(this.urlEndPoint + '/pages/' + page).pipe(map((response: any) => {
 
       (response.content as Cliente[]).map(cliente => {
-        //cliente.name = cliente.name.toUpperCase();
+        cliente.name = cliente.name.toUpperCase();
         let datePipe = new DatePipe('es');
-        //cliente.createAd = datePipe.transform(cliente.createAd, 'fullDate'); //formatDate(cliente.createAd, 'dd-MM-yyyy', 'en-US');
+        // cliente.createAd = datePipe.transform(cliente.createAd, 'fullDate'); //formatDate(cliente.createAd, 'dd-MM-yyyy', 'en-US');
         return cliente;
       });
       return response;
