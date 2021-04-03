@@ -16,6 +16,7 @@ var router_1 = require("@angular/router");
 var http_1 = require("@angular/common/http");
 var common_1 = require("@angular/common");
 var cliente_service_1 = require("./clientes/cliente.service");
+var core_2 = require("@angular/material/core");
 var app_component_1 = require("./app.component");
 var header_component_1 = require("./header/header.component");
 var footer_component_1 = require("./footer/footer.component");
@@ -23,6 +24,7 @@ var directiva_component_1 = require("./directiva/directiva.component");
 var clientes_component_1 = require("./clientes/clientes.component");
 var paginator_component_1 = require("./paginator/paginator.component");
 var form_component_1 = require("./clientes/form.component");
+var animations_1 = require("@angular/platform-browser/animations");
 var routers = [
     { path: '', redirectTo: './clientes', pathMatch: 'full' },
     { path: 'directivas', component: directiva_component_1.DirectivaComponent },
@@ -52,6 +54,8 @@ var AppModule = /** @class */ (function () {
                 forms_1.FormsModule,
                 router_1.RouterModule.forRoot(routers),
                 ng_bootstrap_1.NgbModule,
+                animations_1.NoopAnimationsModule,
+                core_2.MatNativeDateModule,
             ],
             providers: [cliente_service_1.ClienteService, { provide: core_1.LOCALE_ID, useValue: 'es' }],
             bootstrap: [app_component_1.AppComponent]

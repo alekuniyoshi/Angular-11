@@ -9,7 +9,6 @@ exports.__esModule = true;
 exports.ClientesComponent = void 0;
 var core_1 = require("@angular/core");
 var sweetalert2_1 = require("sweetalert2");
-var operators_1 = require("rxjs/operators");
 var ClientesComponent = /** @class */ (function () {
     function ClientesComponent(clienteService, activatedRoute) {
         this.clienteService = clienteService;
@@ -25,12 +24,7 @@ var ClientesComponent = /** @class */ (function () {
                 page = 0;
             }
             _this.clienteService
-                .getClientes(page).pipe(operators_1.tap(function (response) {
-                console.log('clientes.component');
-                response.content.forEach(function (cliente) {
-                    console.log(cliente.name);
-                });
-            })).subscribe(function (response) {
+                .getClientes(page).subscribe(function (response) {
                 _this.clientes = response.content;
                 _this.paginator = response;
             });

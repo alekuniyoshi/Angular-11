@@ -11,8 +11,16 @@ var core_1 = require("@angular/core");
 var PaginatorComponent = /** @class */ (function () {
     function PaginatorComponent() {
     }
-    PaginatorComponent.prototype.ngOnInit = function () { };
-    PaginatorComponent.prototype.ngOnChanges = function () {
+    PaginatorComponent.prototype.ngOnInit = function () {
+        this.iniPaginator();
+    };
+    PaginatorComponent.prototype.ngOnChanges = function (change) {
+        var paginatorUpdated = change['paginator'];
+        if (paginatorUpdated.previousValue) {
+            this.iniPaginator();
+        }
+    };
+    PaginatorComponent.prototype.iniPaginator = function () {
         var _this = this;
         this.since = Math.min(Math.max(1, this.paginator.number - 4), this.paginator.totalPages - 5);
         this.to = Math.max(Math.min(this.paginator.totalPages, this.paginator.number + 4), 6);

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
 import swal from 'sweetalert2';
-import { tap } from 'rxjs/operators';
 import { ActivatedRoute, Params } from '@angular/router';
 
 
@@ -26,12 +25,7 @@ export class ClientesComponent implements OnInit {
       }
 
       this.clienteService
-        .getClientes(page).pipe(tap(response => {
-          console.log('clientes.component');
-          (response.content as Cliente[]).forEach(cliente => {
-            console.log(cliente.name);
-          })
-        })).subscribe(response => {
+        .getClientes(page).subscribe(response => {
           this.clientes = response.content as Cliente[];
           this.paginator = response;
         });

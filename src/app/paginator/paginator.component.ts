@@ -14,9 +14,19 @@ export class PaginatorComponent implements OnInit, OnChanges {
 
   constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.iniPaginator();
+  }
 
-  ngOnChanges(): void {
+  ngOnChanges(change: SimpleChanges): void {
+
+    let paginatorUpdated = change['paginator'];
+    if (paginatorUpdated.previousValue) {
+      this.iniPaginator();
+    }
+  }
+
+  private iniPaginator(): void {
     this.since = Math.min(Math.max(1, this.paginator.number - 4), this.paginator.totalPages - 5);
     this.to = Math.max(Math.min(this.paginator.totalPages, this.paginator.number + 4), 6);
 
@@ -26,6 +36,5 @@ export class PaginatorComponent implements OnInit, OnChanges {
       this.pages = new Array(this.paginator.totalPages).fill(0).map((_valor, index) => index + 1);
     }
   }
-
 
 }

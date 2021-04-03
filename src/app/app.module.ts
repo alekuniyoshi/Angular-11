@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import { ClienteService } from './clientes/cliente.service';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -15,6 +16,7 @@ import { DirectivaComponent } from './directiva/directiva.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { PaginatorComponent } from './paginator/paginator.component';
 import { FormComponent } from './clientes/form.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 const routers: Routes = [
   { path: '', redirectTo: './clientes', pathMatch: 'full' },
@@ -43,8 +45,13 @@ registerLocaleData(localeES, 'es');
     FormsModule,
     RouterModule.forRoot(routers),
     NgbModule,
+    NoopAnimationsModule,
+    MatNativeDateModule,
+
+
   ],
   providers: [ClienteService, { provide: LOCALE_ID, useValue: 'es' }],
   bootstrap: [AppComponent],
+
 })
 export class AppModule { }

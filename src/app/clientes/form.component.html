@@ -44,6 +44,15 @@
           </div>
         </div>
       </div>
+
+      <div class="form-group row">
+        <label for="createAd" class="col-form-label col-sm-2">Date created</label>
+          <input matInput [matDatepicker]="picker" [(ngModel)]="cliente.createAd" name="createAd" class="form-control col-sm-2">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+      </div>
+
+
       <div class="col-sm-6">
         <button type="submit" class="btn btn-primary" role="button" (click)=create() *ngIf="!cliente.id else elseBlock"
           [disabled]=!clientForm.form.valid>Submit</button>
